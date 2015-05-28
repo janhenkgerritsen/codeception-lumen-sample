@@ -3,3 +3,5 @@
 .env
 composer.lock
 .idea
+tests/_output/*
+storage/*.sqlite

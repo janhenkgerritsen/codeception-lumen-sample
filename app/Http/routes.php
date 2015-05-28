@@ -1,16 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+$app->group(['namespace' => 'App\Http\Controllers'], function($app) {
 
-$app->get('/', function() use ($app) {
-    return $app->welcome();
+    $app->get('/', 'HomeController@index');
+    $app->get('redirect', 'HomeController@redirect');
+    $app->get('simple-route', ['as' => 'simple-route', 'uses' => 'HomeController@simpleRoute']);
+    $app->get('complex-route/{param1}/{param2}', ['as' => 'complex-route', 'uses' => 'HomeController@complexRoute']);
+    $app->get('flash', 'HomeController@flash');
+    $app->get('back', 'HomeController@back');
+    $app->get('session/{message}', 'HomeController@session');
+    $app->get('secure', ['middleware' => 'auth', 'uses' => 'HomeController@secure']);
+
 });

@@ -2,7 +2,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-// Dotenv::load(__DIR__.'/../');
+$envFile = defined('RUNNING_TESTS') ? '.env.testing' : '.env'; // RUNNING_TESTS defined in Codeception's _bootstrap.php
+Dotenv::load(__DIR__.'/../', $envFile);
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,9 @@ $app = new Laravel\Lumen\Application(
 	realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -55,17 +56,17 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     // 'Illuminate\Cookie\Middleware\EncryptCookies',
-//     // 'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-//     // 'Illuminate\Session\Middleware\StartSession',
-//     // 'Illuminate\View\Middleware\ShareErrorsFromSession',
-//     // 'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
-// ]);
+ $app->middleware([
+      'Illuminate\Cookie\Middleware\EncryptCookies',
+      'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+      'Illuminate\Session\Middleware\StartSession',
+      'Illuminate\View\Middleware\ShareErrorsFromSession',
+      'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
+ ]);
 
-// $app->routeMiddleware([
-
-// ]);
+ $app->routeMiddleware([
+     'auth' => 'App\Http\Middleware\Authenticate'
+ ]);
 
 /*
 |--------------------------------------------------------------------------

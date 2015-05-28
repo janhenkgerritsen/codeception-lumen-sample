@@ -1,8 +1,9 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class ExampleMiddleware {
+class Authenticate {
 
     /**
      * Handle an incoming request.
@@ -13,6 +14,10 @@ class ExampleMiddleware {
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::guest()) {
+            return response('Unauthorized', 401);
+        }
+
         return $next($request);
     }
 
