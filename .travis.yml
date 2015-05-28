@@ -7,8 +7,10 @@ php:
   - hhvm
 
 before_script:
-  - composer selfupdate
+  - composer self-update
+  - touch storage/database.sqlite
   - touch storage/testing.sqlite
+  - cp .env.example .env
   - composer install -n --prefer-dist
   - php artisan migrate --database=testing --force
   - ./vendor/bin/codecept build
