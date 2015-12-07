@@ -6,4 +6,7 @@
 
 class_name: FunctionalTester
 modules:
-    enabled: [Lumen, Filesystem, FunctionalHelper]
+    enabled:
+        - Lumen
+        - Filesystem
+        - Helper\Functional
