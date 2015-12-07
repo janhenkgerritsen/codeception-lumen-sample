@@ -6,7 +6,7 @@
         }
     ],
     "require": {
-        "laravel/lumen-framework": "5.0.*",
+        "laravel/lumen-framework": "5.1.*",
         "vlucas/phpdotenv": "~1.0",
         "codeception/codeception": "2.1.x-dev"
     },
