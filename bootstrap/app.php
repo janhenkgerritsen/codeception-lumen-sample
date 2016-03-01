@@ -79,7 +79,7 @@ $app->singleton(
 |
 */
 
-// $app->register('App\Providers\AppServiceProvider');
+$app->register('App\Providers\AppServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
