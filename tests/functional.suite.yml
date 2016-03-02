@@ -9,4 +9,5 @@ modules:
     enabled:
         - Lumen
         - Filesystem
+        - Asserts
         - Helper\Functional
