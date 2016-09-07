@@ -1,16 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
+class HomeController extends Controller
+{
 
-class HomeController extends Controller {
-
-	/**
-	 * @return \Illuminate\View\View
-	 */
-	public function index()
-	{
-		return view('hello');
-	}
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('hello');
+    }
 
     /**
      * @return string
@@ -30,42 +29,13 @@ class HomeController extends Controller {
         return "Complex route with parameters $param1 and $param2";
     }
 
-	/**
-	 * @return \Illuminate\View\View
-	 */
-	public function flash()
-	{
-		Session::flash('message', "It's a flash");
-
-		return view('flash');
-	}
-
-	/**
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
-	public function back()
-	{
-		return redirect()->back();
-	}
-
-	/**
-	 * @return \Illuminate\View\View
-	 */
-	public function secure()
-	{
-        return 'Secure';
-	}
-
     /**
-     * @param $message
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
-	public function session($message)
-	{
-		Session::set('message', $message);
-
-        return redirect('/');
-	}
+    public function secure()
+    {
+        return 'Secure';
+    }
 
     /**
      * @return \Illuminate\Http\RedirectResponse

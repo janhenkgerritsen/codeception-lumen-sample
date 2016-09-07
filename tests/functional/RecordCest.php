@@ -2,12 +2,18 @@
 
 class RecordCest
 {
-    protected $userAttributes = [
-        'email' => 'johndoe@example.com',
-        'password' => 'password',
-        'created_at' => '',
-        'updated_at' => ''
-    ];
+
+    private $userAttributes;
+
+    public function _before()
+    {
+        $this->userAttributes = [
+            'email' => 'johndoe@example.com',
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+            'api_token' => str_random(),
+        ];
+    }
 
     public function testHaveRecordWithTableName(FunctionalTester $I)
     {

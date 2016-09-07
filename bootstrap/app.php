@@ -1,9 +1,15 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$envFile = defined('RUNNING_TESTS') ? '.env.testing' : '.env'; // RUNNING_TESTS defined in Codeception's _bootstrap.php
-Dotenv::load(__DIR__.'/../', $envFile);
+// Constrant RUNNING_TESTS is defined in Codeception's _bootstrap.php
+$envFile = defined('RUNNING_TESTS') ? '.env.testing' : '.env';
+
+try {
+    (new Dotenv\Dotenv(__DIR__ . '/../', $envFile))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    //
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +23,7 @@ Dotenv::load(__DIR__.'/../', $envFile);
 */
 
 $app = new Laravel\Lumen\Application(
-	realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 $app->withFacades();
@@ -36,13 +42,13 @@ $app->withEloquent();
 */
 
 $app->singleton(
-    'Illuminate\Contracts\Debug\ExceptionHandler',
-    'App\Exceptions\Handler'
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
-    'Illuminate\Contracts\Console\Kernel',
-    'App\Console\Kernel'
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
 );
 
 /*
@@ -56,17 +62,13 @@ $app->singleton(
 |
 */
 
- $app->middleware([
-      'Illuminate\Cookie\Middleware\EncryptCookies',
-      'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-      'Illuminate\Session\Middleware\StartSession',
-      'Illuminate\View\Middleware\ShareErrorsFromSession',
-      'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
- ]);
+$app->middleware([
+    //
+]);
 
- $app->routeMiddleware([
-     'auth' => 'App\Http\Middleware\Authenticate'
- ]);
+$app->routeMiddleware([
+    'auth' => 'App\Http\Middleware\Authenticate'
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +81,8 @@ $app->singleton(
 |
 */
 
-$app->register('App\Providers\AppServiceProvider');
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +95,8 @@ $app->register('App\Providers\AppServiceProvider');
 |
 */
 
-require __DIR__.'/../app/Http/routes.php';
+$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+    require __DIR__ . '/../app/Http/routes.php';
+});
 
 return $app;
