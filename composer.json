@@ -1,6 +1,6 @@
 {
     "require": {
-        "laravel/lumen-framework": "5.2.*",
+        "laravel/lumen-framework": "5.3.*",
         "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {
